@@ -1,0 +1,12 @@
+<div fxFlex="1 1 0" fxLayout="column" fxLayoutGap="5px">
+  <div fxLayout="row" class="lang-cont">
+    <mat-tab-group (selectedIndexChange)="onSelectedIndexChange($event)">
+      <mat-tab *ngFor="let item of navItems; trackBy: trackByNameFn" [label]="item.name | translate">
+      </mat-tab>
+
+    </mat-tab-group>
+
+    <ne-lang-container fxFlex></ne-lang-container>
+  </div>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,14 @@
+.lang-cont {
+	background-color: #f3f3f3;
+  padding-left: 10px;
+}
+
+:host ::ng-deep .mat-tab-label-active {
+  color: #3f51b5;
+  font-weight: bold;
+  opacity: 1;
+}
+
+:host ::ng-deep .mat-tab-label-content {
+  user-select: none;
+}

@@ -1,0 +1,5 @@
+{
+  "INTRODUCTION": {
+    "TEXT": "Dobry den.\nTato aplikace byla vyvijena pro spolecnost Nano Energies jako testovy ukol, ktery reprezentuje moje znalosti a zkusenosti z frameworkem Angular a programovacim jazykem TypeScript.\nV aplikace jsem použil Angular Material, flex-layout, rxJs.\nMoja cil je ukazat vam navic ještě že rozumim jak pracuje routing a lokalizace. Všudy použivam lazy loading.\n\nDěkuji za vaš čas.\nMaxim"
+  }
+}

@@ -1,0 +1,2 @@
+<img class="unselectImg" (click)="onImgClick(flagStateEnum.UNSELECTED)" [hidden]="flag.selected" [src]="flag.imgUp">
+<img [ngClass]="isCheckBox?'unselectImg':''" (click)="onImgClick(flagStateEnum.SELECTED)" [hidden]="!flag.selected" [src]="flag.imgDown">
