@@ -2,5 +2,13 @@
   "TUBS": {
     "INTRODUCTION": "Introducing",
     "TASK": "Task"
+  },
+  "ERRORS": {
+    "IS_REQUIRED": "Field is required",
+    "INVALID_EMAIL": "Invalid E-mail address"
+  },
+  "ERROR": {
+    "TITLE": "Application error has occurred",
+    "OK": "OK"
   }
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { combineLatest, Observable, of, Subject, Subscription } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
+import { LocalStorageKeysEnum } from 'src/app/shared/enums/local-storage-keys.enum';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { LanguageEnum } from '../enums/language.enum';
 import { ModuleTypeEnum } from '../enums/module-type.enum';
 import { LanguageService } from './language.service';
@@ -10,7 +12,7 @@ import { LanguageService } from './language.service';
 export class TranslateGlService {
   private translateDataMap: Map<ModuleTypeEnum, {translateService: TranslateService, subscription: Subscription}> = new Map();
 
-  constructor(private languageService: LanguageService) {
+  constructor(private languageService: LanguageService, private localStorageService: LocalStorageService) {
   }
 
   getInstance(type: ModuleTypeEnum = ModuleTypeEnum.GLOBAL): TranslateService {
@@ -21,10 +23,9 @@ export class TranslateGlService {
     const instanceLoaded$: Subject<boolean> = new Subject();
     const subscription = new Subscription();
     this.translateDataMap.set(type, {translateService: service, subscription});
-    if (type !== ModuleTypeEnum.GLOBAL) {
       subscription.add(
         this.languageService.getLanguage$().subscribe((value: LanguageEnum) => {
-          value = value !== LanguageEnum.NONE ? value : LanguageEnum.CZ;
+          value = value !== LanguageEnum.NONE ? value : (this.localStorageService.getItem(LocalStorageKeysEnum.LANGUAGE) as LanguageEnum || LanguageEnum.CZ);
           if (service.currentLang === value){
             setTimeout(() => {
               instanceLoaded$.next(true);
@@ -36,7 +37,6 @@ export class TranslateGlService {
           }
         })
       );
-    }
     return instanceLoaded$;
   }
 
@@ -45,15 +45,14 @@ export class TranslateGlService {
     this.translateDataMap.delete(type);
   }
 
-  use(lng: LanguageEnum): Observable<LangChangeEvent> {
+  use(lng: LanguageEnum): Observable<LanguageEnum> {
     return combineLatest(
         [...this.translateDataMap.values()].filter(translateData => translateData.translateService.currentLang !== lng).map(translateData => {
-          translateData.translateService.use(lng);
-          return translateData.translateService.onLangChange;
+          return translateData.translateService.use(lng);
         })
       ).pipe(
-        switchMap(arr => {
-          return of(arr[0] as LangChangeEvent);
+        switchMap(_ => {
+          return of(lng);
       }));
   }
 }

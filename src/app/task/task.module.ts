@@ -10,7 +10,7 @@ import { TaskContainerComponent } from './components/task-container/task-contain
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient, './assets/i18n/introduction/', '.json');
+  return new TranslateHttpLoader(httpClient, './assets/i18n/task/', '.json');
 }
 
 const introductionRoutes: Route[] = [
@@ -28,7 +28,7 @@ const introductionRoutes: Route[] = [
     FlexLayoutModule,
     RouterModule.forChild(introductionRoutes),
     TranslateModule.forChild({
-      loader: {provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient]},
+      loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] },
       isolate: true,
     }),
   ],

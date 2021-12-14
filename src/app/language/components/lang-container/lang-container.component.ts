@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { FlagStateEnum } from 'src/app/shared/enums/flag-state.enum';
+import { LocalStorageKeysEnum } from 'src/app/shared/enums/local-storage-keys.enum';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { Flag } from '../../../shared/types/flag.type';
 import { LanguageEnum } from '../../enums/language.enum';
 import { LanguageService } from '../../services/language.service';
@@ -26,9 +27,10 @@ export class LangContainerComponent {
     },
   ];
 
-  constructor(private translate: TranslateService, private languageService: LanguageService) {
+  constructor(private translate: TranslateService, private languageService: LanguageService, private localStorageService: LocalStorageService) {
     this.translate.addLangs(this.languageService.getLangIds());
-    this.setLang(LanguageEnum.CZ);
+    const lang = this.localStorageService.getItem(LocalStorageKeysEnum.LANGUAGE);
+    this.setLang(lang || LanguageEnum.CZ);
   }
 
   trackByIdFn(_: any, item: Flag): any{
@@ -36,6 +38,7 @@ export class LangContainerComponent {
   }
 
   setLang(id: string | LanguageEnum): void {
+    this.localStorageService.setItem(LocalStorageKeysEnum.LANGUAGE, id);
     this.languageService.setLanguage(id as LanguageEnum);
 
     this.flags = this.flags.map((flag) => ({

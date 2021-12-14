@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { ModuleTypeEnum } from 'src/app/language/enums/module-type.enum';
+import { TranslateGlService } from 'src/app/language/services/translate-gl.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { BaseContainerDirective } from 'src/app/shared/directives/base-container.directive';
+import { LanguageService } from 'src/app/language/services/language.service';
 
 export type NavItem = Readonly<{
   name: string;
@@ -12,20 +18,25 @@ export type NavItem = Readonly<{
   styleUrls: ['./main-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainContainerComponent {
+export class MainContainerComponent extends BaseContainerDirective {
+  protected moduleType: ModuleTypeEnum;
   navItems: Array<NavItem> = [
     {
       name: 'TUBS.INTRODUCTION',
-      url: '/introduction',
+      url: `/${ModuleTypeEnum.INTRODUCTION}`,
     },
     {
       name: 'TUBS.TASK',
-      url: '/task',
+      url: `/${ModuleTypeEnum.TASK}`,
     },
   ];
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, protected translateGlService : TranslateGlService, protected translateService: TranslateService,
+    protected localStorageService: LocalStorageService, protected languageService: LanguageService, protected cdr: ChangeDetectorRef) {
+      super();
+      this.moduleType = ModuleTypeEnum.GLOBAL;
+  }
 
   trackByNameFn(_: any, item:NavItem){
     return item.name;
@@ -43,6 +54,10 @@ export class MainContainerComponent {
     if (this.getActiveUrl() !== url) {
       this.router.navigateByUrl(url);
     }
+  }
+
+  getSelectedIndex(): number {
+     return this.navItems.findIndex(item => this.isActive(item));
   }
 
   isActive(navItem: NavItem): boolean {

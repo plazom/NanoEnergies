@@ -1,0 +1,20 @@
+<div fxFill fxLayout="row" fxLayoutAlign="center center">
+  <form [formGroup]="form">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
+      <img class="logo" src="assets/imgs/logo-colored.svg">
+      <div class="login-cont" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <mat-form-field class="width-100">
+          <mat-label>{{'LOGIN.EMAIL' | translate}}</mat-label>
+          <input class="form-control" matInput formControlName="email" autocomplete="off" required>
+          <mat-error>{{getLoginError()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="width-100">
+          <mat-label>{{'LOGIN.PASSWORD' | translate}}</mat-label>
+          <input class="form-control" type="password" matInput formControlName="password" autocomplete="off" required>
+          <mat-error>{{getPasswordError()}}</mat-error>
+        </mat-form-field>
+        <button [disabled]="!formIsValid()" class="width-100" mat-raised-button color="primary" (click)="onSignInClick()">{{ 'LOGIN.SIGN_IN' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>

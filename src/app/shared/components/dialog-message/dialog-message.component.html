@@ -1,0 +1,8 @@
+<div fxLayout="column" fxLayoutGap="10px">
+  <div *ngIf="data && data.icon" fxLayout="row"  fxLayoutAlign="center center" [ngStyle]="getIconStyle()">
+      <ne-icon *ngIf="data.icon" [iconData]="data.icon"></ne-icon>
+  </div>
+  <ne-text *ngIf="data && data.title" [dataText]="data.title"></ne-text>
+  <ne-text *ngIf="data && data.text" [dataText]="data.text"></ne-text>
+  <ne-button-list *ngIf="data && data.buttons"  [buttons]="data.buttons" (buttonClick)="onButtonClick($event)"></ne-button-list>
+</div>

@@ -14,7 +14,6 @@ export abstract class BaseContainerDirective implements OnInit, OnDestroy {
   protected abstract languageService: LanguageService;
   protected abstract cdr: ChangeDetectorRef;
 
-  protected dataWasLoaded = false;
   ngOnInit(): void {
     this.subscription.add(
       this.translateGlService.setInstance(this.translateService, this.moduleType).subscribe(_ => {

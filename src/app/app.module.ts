@@ -9,6 +9,13 @@ import { CoreModule } from './core/core.module';
 import { LoaderService } from './shared/services/loader.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ConfigEffects } from './store/effects/config.effects';
+import { appReducer } from './store/reducers/app.reducer';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { LoginEffects } from './store/effects/login.effects';
+import { ApiService } from './api/services/api.service';
 
 @NgModule({
   declarations: [
@@ -17,6 +24,10 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
   ],
   imports: [
     BrowserModule,
+    StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([ConfigEffects, LoginEffects]),
+    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
+
     RouterModule.forRoot([]),
     CoreModule,
     MatProgressSpinnerModule,
@@ -24,7 +35,8 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
   ],
   providers: [
     LoaderService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    ApiService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

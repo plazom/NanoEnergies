@@ -1,0 +1,9 @@
+<a *ngIf="dataText && dataText.url else dataTextTemplate" [href]="dataText.url" target="_blank">
+      <ng-container *ngTemplateOutlet="dataTextTemplate"></ng-container>
+</a>
+
+<ng-template #dataTextTemplate>
+      <div *ngIf="dataText" fxFlex fxLayout="row"  [fxLayoutAlign]="layoutAlign" [ngStyle]="textStyle || {}" [innerHTML]="dataText.value"
+            #tooltip="matTooltip" [matTooltip]="dataText.toolTip || ''" [matTooltipShowDelay]="700">
+      </div>
+</ng-template>

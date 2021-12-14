@@ -1,16 +1,18 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpErrorInterceptor } from '../interceptors/http-error.interceptor';
 import { LanguageModule } from '../language/language.module';
-import { LanguageService } from '../language/services/language.service';
 import { TranslateGlService } from '../language/services/translate-gl.service';
+import { MaterialModule } from '../shared/material.module';
+import { DialogMessageService } from '../shared/services/dialog-message.service';
 import { MainContainerComponent } from './components/main-container/main-container.component';
 import { coreRoutes } from './core-routes';
-import {MatTabsModule} from '@angular/material/tabs'
+import { PowerModule } from './modules/power-module/power.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -31,11 +33,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     }),
     LanguageModule,
-    MatTabsModule,
+    MaterialModule,
+    PowerModule
   ],
   providers: [
-    LanguageService,
-    TranslateGlService
+    DialogMessageService, TranslateGlService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
   declarations: [
     MainContainerComponent,
@@ -44,8 +47,4 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MainContainerComponent,
   ],
 })
-export class CoreModule {
-  constructor(private translateGlService : TranslateGlService, private translateService: TranslateService){
-    this.translateGlService.setInstance(this.translateService);
-  }
-}
+export class CoreModule {}

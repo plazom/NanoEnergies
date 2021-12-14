@@ -1,0 +1,22 @@
+$disabledColor: #d3d3d3 !important;
+
+:host{
+  display: inline-block;
+}
+
+::ng-deep .mat-button-wrapper {
+  padding: 0px !important;
+  display: block !important;
+  line-height: unset !important;
+}
+.disabled {
+  color: $disabledColor;
+}
+
+.disabled:hover{
+  cursor: not-allowed;
+}
+
+.disabled:active{
+  pointer-events: none;
+}

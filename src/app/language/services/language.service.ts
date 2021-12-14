@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { objectToArray } from 'src/app/shared/utils/transform-util';
+import { SetLanguageAction } from 'src/app/store/actions/config.actions';
+import { getLanguage } from 'src/app/store/selectors/config.selector';
+import { IAppState } from 'src/app/store/state/app.state';
 import { LanguageEnum } from '../enums/language.enum';
 
 @Injectable()
 export class LanguageService {
-  currLang$ = new BehaviorSubject(LanguageEnum.NONE);
-  constructor(){}
+  constructor(private store: Store<IAppState>){}
 
-  getLanguage$(): BehaviorSubject<LanguageEnum> {
-    return this.currLang$;
+  getLanguage$(): Observable<LanguageEnum> {
+    return this.store.select(getLanguage);
   }
 
   setLanguage(id: LanguageEnum): void {
-    this.currLang$.next(id);
+    this.store.dispatch(new SetLanguageAction(id));
   }
 
   getLangIds(): LanguageEnum[] {
-    return [LanguageEnum.EN, LanguageEnum.CZ];
+    return (objectToArray(LanguageEnum) as LanguageEnum[]).filter(value => value !== LanguageEnum.NONE);
   }
 }

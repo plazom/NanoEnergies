@@ -1,5 +1,5 @@
 {
   "INTRODUCTION": {
-    "TEXT": "Hello.\nThis application was developed for Nano Energies company as a test exercise to demonstrate my skills in the Angular framework and TypeScript programming language.\nThere are Angular Material, flex-layout, rxJs were used in this application.\nI would like show that i understand how works routing and localization yet. I use lazy loading always.\n\nThank you,\nMaxim."
+    "TEXT": "Hello.\nThis application was developed for Nano Energies company as a test exercise to demonstrate my skills in the Angular framework and TypeScript programming language.\nThere are Angular Material, flex-layout, RxJs, NgRx were used in this application.\nI would like show that i understand how works routing and localization yet. I use lazy loading always.\n\nThank you,\nMaxim."
   }
 }

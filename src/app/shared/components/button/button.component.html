@@ -1,0 +1,10 @@
+<div *ngIf="buttonData && (buttonData.visible === undefined || buttonData.visible)" fxLayout="row" fxLayoutAlign="center center" [ngStyle]="containerStyle || {}">
+  <button *ngIf="!buttonData.hidden" mat-button [ngClass]="buttonData.type || ''" [ngStyle]="buttonStyle || {}" [color]="buttonColor"
+    [disabled]="buttonData.disabled || disabled" (click)="onButtonClick()" [matTooltip]="buttonData.tooltip || ''" matTooltipShowDelay="1000"
+    (mouseenter)="changeGrow(true)" (mouseleave)="changeGrow(false)">
+      <div fxLayout="row" fxLayoutAlign="center center" [fxLayoutGap]="gapBetweenTextIcon">
+        <ne-text *ngIf="dataText" [dataText]="dataText" [ngStyle]="textOrder || {}"></ne-text>
+        <ne-icon *ngIf="buttonData.icon" [iconData]="buttonData.icon" [grow]="grow" [ngStyle]="iconOrder || {}"></ne-icon>
+      </div>
+  </button>
+</div>

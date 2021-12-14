@@ -2,5 +2,13 @@
   "TUBS": {
     "INTRODUCTION": "Představování",
     "TASK": "Zadání"
+  },
+  "ERRORS": {
+    "IS_REQUIRED": "Pole je povinné",
+    "INVALID_EMAIL": "Neplatná e-mailová adresa"
+  },
+  "ERROR": {
+    "TITLE": "Nastala chyba aplikace",
+    "OK": "OK"
   }
 }

@@ -1,0 +1,3 @@
+<div *ngIf="buttons" fxLayoutGap="10px" fxLayout="row"  fxLayoutAlign="center center">
+  <ne-button [disabled]="disabled" *ngFor="let button of buttons; trackBy: trackByNameFn" [buttonData]="button.dataButton" (buttonClick)="onButtonClick(button)"></ne-button>
+</div>

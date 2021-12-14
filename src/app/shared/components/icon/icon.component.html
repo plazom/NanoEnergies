@@ -1,0 +1,3 @@
+<div *ngIf="iconData && (iconData.visible === undefined || iconData.visible)" fxLayout="column" fxLayoutAlign="center center" [ngStyle]="containerStyle || {}" (mouseenter)="changeGrow(true)" (mouseleave)="changeGrow(false)">
+  <mat-icon *ngIf="!iconData.hidden" [matTooltip]="iconData.tooltip || ''" matTooltipShowDelay="1000" [ngClass]="iconClass || ''" [ngStyle]="iconStyle || {}" [color]="colorIcon">{{iconData.name}}</mat-icon>
+</div>
