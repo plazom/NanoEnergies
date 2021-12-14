@@ -24,7 +24,7 @@ export class LoginService {
     this.store.dispatch(new SetTokenAction(newToken));
   }
 
-  logout(time: number = 100000): void {
+  logout(time: number = 3000): void {
     if(this.timeOut){
       clearTimeout(this.timeOut);
     }
