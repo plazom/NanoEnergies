@@ -1,4 +1,4 @@
-import { ELoginActions, LoginActions, SetTokenAction } from '../actions/login.actions';
+import { ELoginActions, LoginActions, SetTokenSuccessAction } from '../actions/login.actions';
 import { initialLoginState, ILoginState } from '../state/login.state';
 
 export const loginReducer = (
@@ -6,10 +6,10 @@ export const loginReducer = (
   action: LoginActions
 ): ILoginState => {
   switch (action.type) {
-    case ELoginActions.SetToken: {
+    case ELoginActions.SetTokenSuccess: {
       return {
         ...state,
-        token: (action as SetTokenAction).payload,
+        token: (action as SetTokenSuccessAction).payload,
       };
     }
     default:

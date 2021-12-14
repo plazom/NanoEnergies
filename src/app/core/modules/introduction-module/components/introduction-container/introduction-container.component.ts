@@ -6,18 +6,18 @@ import { TranslateGlService } from 'src/app/language/services/translate-gl.servi
 import { BaseContainerDirective } from 'src/app/shared/directives/base-container.directive';
 
 @Component({
-  selector: 'ne-task-container',
-  templateUrl: './task-container.component.html',
-  styleUrls: ['./task-container.component.scss'],
+  selector: 'ne-introduction-container',
+  templateUrl: './introduction-container.component.html',
+  styleUrls: ['./introduction-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskContainerComponent extends BaseContainerDirective {
+export class IntroductionContainerComponent extends BaseContainerDirective {
   protected moduleType: ModuleTypeEnum;
 
   constructor(protected translateGlService: TranslateGlService, protected translateService: TranslateService,
     protected  languageService: LanguageService, protected cdr: ChangeDetectorRef) {
     super();
-    this.moduleType = ModuleTypeEnum.TASK;
+    this.moduleType = ModuleTypeEnum.INTRODUCTION;
   }
 
 }

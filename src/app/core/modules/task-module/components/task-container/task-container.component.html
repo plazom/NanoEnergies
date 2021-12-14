@@ -1,0 +1,11 @@
+<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+  <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+    <ne-user-info *ngFor="let userData of getUsers(); trackBy: trackByIdFn" [data]="userData" [showInfo]="true"></ne-user-info>
+  </div>
+  <mat-paginator #paginator [ngClass]="'mat-paginator-sticky'" (page)="onChangePage($event)"
+    [length]="getTotalItems()"
+    [pageSize]="getPageSize()"
+    [pageIndex]="getPageIndex()"
+    >
+  </mat-paginator>
+</div>

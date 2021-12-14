@@ -1,5 +1,11 @@
 {
-  "TASK": {
-    "TEXT": "Task en"
+  "USER_INFO": {
+    "EMAIL": "E-mail",
+    "FIRST_NAME": "First name",
+    "LAST_NAME": "Last name",
+    "PHOTO": "Photo"
+  },
+  "DETAIL": {
+    "BACK": "Back"
   }
 }

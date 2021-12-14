@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ILogin } from 'src/app/api/interfaces/login.interface';
@@ -9,19 +8,32 @@ import { IAppState } from 'src/app/store/state/app.state';
 
 @Injectable()
 export class LoginService {
-  constructor(private router: Router, private store: Store<IAppState>){}
+  timeOut: any;
+  constructor( private store: Store<IAppState>){}
 
   loginToServer(data: ILogin): void {
     this.store.dispatch(new LoginToServerAction(data));
+    this.logout();
   }
 
   getToken$(): Observable<string> {
     return this.store.select(getToken);
   }
 
-  logout(): void {
-    this.store.dispatch(new SetTokenAction(''));
-    this.router.navigateByUrl('/login');
+  setToken(newToken: string): void {
+    this.store.dispatch(new SetTokenAction(newToken));
+  }
+
+  logout(time: number = 100000): void {
+    if(this.timeOut){
+      clearTimeout(this.timeOut);
+    }
+    this.timeOut = setTimeout(() => {
+      this.store.dispatch(new SetTokenAction(''));
+    }, time);
+
+
+
   }
 
 }

@@ -1,6 +1,6 @@
 <div fxFill fxLayout="column">
   <div fxLayout="row" class="lang-cont" fxLayoutAlign="center center">
-    <mat-tab-group (selectedIndexChange)="onSelectedIndexChange($event)" [selectedIndex]="getSelectedIndex()">
+    <mat-tab-group *ngIf="isMenuVisible()" (selectedIndexChange)="onSelectedIndexChange($event)" [selectedIndex]="getSelectedIndex()">
       <mat-tab *ngFor="let item of navItems; trackBy: trackByNameFn" [label]="item.name | translate">
       </mat-tab>
     </mat-tab-group>

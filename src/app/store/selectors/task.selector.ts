@@ -9,3 +9,8 @@ export const getTaskData = createSelector(
   taskState,
   (state: ITaskState) => state.data
 );
+
+export const getUserDetail = createSelector(
+  taskState,
+  (state: ITaskState) => state.userDetail
+);

@@ -1,10 +1,12 @@
-import { LanguageEnum } from '../../language/enums/language.enum';
-
+import { IUserResponse } from 'src/app/api/interfaces/user-response.interface';
+import { IUsersResponse } from 'src/app/api/interfaces/users-response.interface';
 
 export interface ITaskState {
-  data: any;
+  data?: IUsersResponse;
+  userDetail?: IUserResponse;
 }
 
 export const initialTaskState: ITaskState = {
-  data: null,
+  data: undefined,
+  userDetail: undefined,
 };

@@ -1,4 +1,4 @@
-import { ETaskActions, LoadDataSuccessAction, TaskActions } from '../actions/task.actions';
+import { ETaskActions, LoadDataSuccessAction, LoadUserDetailSuccessAction, TaskActions } from '../actions/task.actions';
 import { initialTaskState, ITaskState } from '../state/task.state';
 
 export const taskReducer = (
@@ -10,6 +10,12 @@ export const taskReducer = (
       return {
         ...state,
         data: (action as LoadDataSuccessAction).payload,
+      };
+    }
+    case ETaskActions.LoadUserDetailSuccess: {
+      return {
+        ...state,
+        userDetail: (action as LoadUserDetailSuccessAction).payload,
       };
     }
     default:

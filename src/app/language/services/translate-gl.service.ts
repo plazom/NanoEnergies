@@ -10,6 +10,7 @@ import { LanguageService } from './language.service';
 
 @Injectable()
 export class TranslateGlService {
+  private instanceLoaded$: Subject<boolean> = new Subject();
   private translateDataMap: Map<ModuleTypeEnum, {translateService: TranslateService, subscription: Subscription}> = new Map();
 
   constructor(private languageService: LanguageService, private localStorageService: LocalStorageService) {
@@ -20,7 +21,6 @@ export class TranslateGlService {
   }
 
   setInstance(service: TranslateService, type: ModuleTypeEnum = ModuleTypeEnum.GLOBAL): Subject<boolean> {
-    const instanceLoaded$: Subject<boolean> = new Subject();
     const subscription = new Subscription();
     this.translateDataMap.set(type, {translateService: service, subscription});
       subscription.add(
@@ -28,16 +28,16 @@ export class TranslateGlService {
           value = value !== LanguageEnum.NONE ? value : (this.localStorageService.getItem(LocalStorageKeysEnum.LANGUAGE) as LanguageEnum || LanguageEnum.CZ);
           if (service.currentLang === value){
             setTimeout(() => {
-              instanceLoaded$.next(true);
+              this.instanceLoaded$.next(true);
             }, 0);
           } else {
             this.use(value).pipe(take(1)).subscribe(_ => {
-              instanceLoaded$.next(true);
+              this.instanceLoaded$.next(true);
             });
           }
         })
       );
-    return instanceLoaded$;
+    return this.instanceLoaded$;
   }
 
   removeInstance(type: ModuleTypeEnum): void {

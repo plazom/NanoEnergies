@@ -1,5 +1,11 @@
 {
-  "TASK": {
-    "TEXT": "Task cz"
+  "USER_INFO": {
+    "EMAIL": "E-mail",
+    "FIRST_NAME": "Jmeno",
+    "LAST_NAME": "Prijmeni",
+    "PHOTO": "Foto"
+  },
+  "DETAIL": {
+    "BACK": "Zpátky"
   }
 }

@@ -4,8 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { ModuleTypeEnum } from 'src/app/language/enums/module-type.enum';
 import { TranslateGlService } from 'src/app/language/services/translate-gl.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { LocalStorageKeysEnum } from 'src/app/shared/enums/local-storage-keys.enum';
 import { BaseContainerDirective } from 'src/app/shared/directives/base-container.directive';
 import { LanguageService } from 'src/app/language/services/language.service';
+import { LoginService } from '../../modules/login-module/services/login.service';
 
 export type NavItem = Readonly<{
   name: string;
@@ -18,7 +20,8 @@ export type NavItem = Readonly<{
   styleUrls: ['./main-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainContainerComponent extends BaseContainerDirective {
+export class MainContainerComponent extends BaseContainerDirective implements OnInit {
+  hasToken = false;
   protected moduleType: ModuleTypeEnum;
   navItems: Array<NavItem> = [
     {
@@ -33,9 +36,24 @@ export class MainContainerComponent extends BaseContainerDirective {
 
 
   constructor(private router: Router, protected translateGlService : TranslateGlService, protected translateService: TranslateService,
-    protected localStorageService: LocalStorageService, protected languageService: LanguageService, protected cdr: ChangeDetectorRef) {
+    protected localStorageService: LocalStorageService, protected languageService: LanguageService, protected cdr: ChangeDetectorRef, protected loginService: LoginService ) {
       super();
       this.moduleType = ModuleTypeEnum.GLOBAL;
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    LocalStorageKeysEnum
+    const token = this.localStorageService.getItem(LocalStorageKeysEnum.TOKEN);
+    if (token) {
+      this.loginService.logout();
+    }
+    this.subscription.add(
+      this.loginService.getToken$().subscribe(token => {
+        this.hasToken = Boolean(token);
+        this.cdr.markForCheck();
+      })
+    );
   }
 
   trackByNameFn(_: any, item:NavItem){
@@ -51,16 +69,21 @@ export class MainContainerComponent extends BaseContainerDirective {
   }
 
   navigate(url: string): void {
-    if (this.getActiveUrl() !== url) {
+    if (this.getActiveUrl() !== url && this.getActiveUrl() !== `/${ModuleTypeEnum.LOGIN}`) {
       this.router.navigateByUrl(url);
     }
   }
 
   getSelectedIndex(): number {
-     return this.navItems.findIndex(item => this.isActive(item));
+    const result = this.navItems.findIndex(item => this.isActive(item))
+     return result >=0 ? result : 1;
   }
 
   isActive(navItem: NavItem): boolean {
     return this.getActiveUrl() === navItem.url;
+  }
+
+  isMenuVisible(): boolean {
+      return this.hasToken && this.router.url.indexOf(ModuleTypeEnum.USER_DETAIL) === -1;
   }
 }

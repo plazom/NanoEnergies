@@ -16,6 +16,7 @@ import { appReducer } from './store/reducers/app.reducer';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { LoginEffects } from './store/effects/login.effects';
 import { ApiService } from './api/services/api.service';
+import { TaskEffects } from './store/effects/task.effects';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { ApiService } from './api/services/api.service';
   imports: [
     BrowserModule,
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([ConfigEffects, LoginEffects]),
+    EffectsModule.forRoot([ConfigEffects, LoginEffects, TaskEffects]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
 
     RouterModule.forRoot([]),

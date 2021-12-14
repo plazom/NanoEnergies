@@ -13,8 +13,11 @@ export class ApiService {
     return this.httpClient.post<ILoginResponse>(`${this.apiUrl}/register`, data, { responseType: "json" });
   }
 
-  getData$(token: string, page: number): Observable<any>  {
+  loadUsers$(token: string, page: number): Observable<any>  {
     return this.httpClient.get(`${this.apiUrl}/users?page=${page}`, { headers: new HttpHeaders({'x-access-token': token}), responseType: "json"});
   }
 
+  loadUserDetail$(token: string, id: number): Observable<any>  {
+    return this.httpClient.get(`${this.apiUrl}/users/${id}`, { headers: new HttpHeaders({'x-access-token': token}), responseType: "json"});
+  }
 }

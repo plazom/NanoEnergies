@@ -1,0 +1,21 @@
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+    <img *ngIf="getAvatarUrl()" class="avatar" [ngStyle]="getAvatarStyle()" (click)="goToDetail()" [src]="getAvatarUrl()">
+    <img *ngIf="!getAvatarUrl()" class="avatar" [ngStyle]="getAvatarStyle()" (click)="goToDetail()" src="assets/imgs/avatar.jpg">
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="5px">
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
+        <div class="bold">ID:</div>
+        <div class="bold">{{'USER_INFO.FIRST_NAME' | translate}}:</div>
+        <div class="bold">{{'USER_INFO.LAST_NAME' | translate}}:</div>
+        <div class="bold">{{'USER_INFO.EMAIL' | translate}}:</div>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
+        <div>{{getUserId()}}</div>
+        <div>{{getUserFirstName()}}</div>
+        <div>{{getUserLastName()}}</div>
+        <div>{{getUserEmail()}}</div>
+      </div>
+
+    </div>
+
+  </div>

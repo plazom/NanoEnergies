@@ -33,7 +33,7 @@ export class IconComponent {
     this.iconStyle = this.getIconStyle();
   }
 
-  colorIcon: ColorStyleEnum | undefined;
+  colorIcon?: ColorStyleEnum;
   containerStyle?: object;
   iconClass?: object;
   iconStyle?: object;

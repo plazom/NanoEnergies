@@ -32,6 +32,6 @@ export class PowerContainerComponent {
   }
 
   logout(): void {
-    this.loginService.logout();
+    this.loginService.logout(0);
   }
 }
